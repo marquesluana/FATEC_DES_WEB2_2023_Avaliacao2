@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `portaria`
 --
--- CREATE DATABASE portaria;
+CREATE DATABASE portaria;
 USE portaria;
 -- --------------------------------------------------------
 

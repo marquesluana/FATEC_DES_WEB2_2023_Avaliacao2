@@ -1,12 +1,26 @@
 <?php
-
+    if($_SERVER["REQUEST_METHOD"] == "GET"){
+        header("location: registros.php");
+    }
     
     require_once('header.php');
     require_once('dados_banco.php');
 
-    /*
-        SEU CÓDIGO AQUI
-    */
+    $placa = $_POST['placa_id'];
+
+    try {
+        $dsn = "mysql:host=$servername;dbname=$dbname";
+        $conn = new PDO($dsn, $username, $password);
+        
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT data_hora FROM registro WHERE '$placa'=veiculos_id";
+    }catch(PDOException $e){
+        echo $e->getMessage();
+    }
+    
+    $stmt = $conn->query($sql);
+    
+    $conn = null;
 
 ?>
  
@@ -33,10 +47,9 @@
             <label>Data e Hora em que existe registro de entrada/saída</label>
             <br>
             <?php
-               /*
-               Dados encontrados na tabela registro
-               devem ser apresentados aqui.
-                */
+               while ($row = $stmt->fetch()) {
+                echo $row['data_hora']."<br/>\n";
+                }
             ?>
         </div>
 

@@ -1,20 +1,30 @@
 <?php
+    if($_SERVER["REQUEST_METHOD"] == "GET"){
+        header("location: cadastro.php");
+    }
 
     require_once('header.php');
     require_once('dados_banco.php');
 
     $aluno = $_POST['aluno'];
     $placa = $_POST['placa'];
-/*
-    if(strlen($aluno) > 10 ){
-        header("location: cadastro.php");
-    }
-*/
-    /*
-    SEU CÓDIGO AQUI
-    Para conectar ao SGBD MySQL, inserir dados
-    na tabela veículos.
-    */
+
+    
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO veiculos (aluno, placa)
+        VALUES ('$aluno', '$placa')";
+        
+        $conn->exec($sql);
+        }
+    catch(PDOException $e)
+        {
+        echo $e->getMessage();
+        }
+
+    $conn = null;
 ?>
  
 <!DOCTYPE html>

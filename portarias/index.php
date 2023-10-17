@@ -1,10 +1,14 @@
 <?php
  
-
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    /*
-    SEU CÓDIGO AQUI
-    */
+    session_start();
+    if($_POST['nome'] == 'fatec' and $_POST['senha'] == 'portaria'){
+        $_SESSION['online'] = TRUE;
+        $_SESSION["username"] = 'Portaria Fatec';
+         header("location: principal.php");
+    } else {
+        $_SESSION['online'] = FALSE;
+    }
 }
 ?>
  
